@@ -1,7 +1,6 @@
 #' In this script, we will create simulations by generating block-diagonal matrices as X matrices
 #' 
 #' That is instead of generating separately F, S and G and then taking X = FSG^T
-#' 
 
 
 # Libraries
@@ -12,30 +11,47 @@ library(Matrix)
 # Number of row-clusters and column-clusters
 n_rowClusters <- 3
 n_colClusters <- 3
-# Introduce simulated data-views 
+# Introduce simulated data-views- where we store the views
 X_trial <- vector("list", length = 2)
-true_row_clusterings <- vector("list", length = length(X_trial))
+
+#list to store row clusterings for each dataview
+true_row_clusterings <- vector("list", length = length(X_trial)) 
 true_col_clusterings <- vector("list", length = length(X_trial))
-# First data-view
-# Dimensions of each block
-# vector of length = n_rowClusters
+
+## Generate first data-view
+
+# Dimensions of each block - how many individuals/features in each cluster
+# a vector of length = n_rowClusters
 row_dim <- c(100, 200, 300)
 col_dim <- c(50, 100, 250)
+
 # Create a list as input for block-diagonal data generation
+# list length of no of clusters in this first view
 inputList <- vector("list", length = max(length(row_dim), length(col_dim)))
+# generate a mvn with n=number of individuals of view and no of features
+# equal to number of features of the view
+# mean of 5 for each column
+# covariance matrix is identity - each feature is independent 
 inputList[[1]] <- mvrnorm(n =row_dim[1], mu = rep(5,col_dim[1]), Sigma = diag(col_dim[1]))
 inputList[[2]] <- mvrnorm(n =row_dim[2], mu = rep(5,col_dim[2]), Sigma = diag(col_dim[2]))
 inputList[[3]] <- mvrnorm(n =row_dim[3], mu = rep(5,col_dim[3]), Sigma = diag(col_dim[3]))
-X_trial[[1]] <- as.matrix(bdiag(inputList))
+
+# data for first view - no noise between clusters
+X_trial[[1]] <- as.matrix(bdiag(inputList)) 
+# generate noise, MVN with no correlation, zero mean and variance of 10
 X_noise <- mvrnorm(n = nrow(X_trial[[1]]), mu = rep(0, ncol(X_trial[[1]])), Sigma = diag(10,ncol(X_trial[[1]])))
-X_trial[[1]] <- X_trial[[1]] + X_noise
+# add noise to first view
+X_trial[[1]] <- X_trial[[1]] + X_noise 
+
+#define vectors indicating true row/column cluster membership for each view
 true_row_clusterings[[1]] <- c(rep(1,100),
                                rep(2,200),
                                rep(3,300))
 true_col_clusterings[[1]] <- c(rep(1,50),
                                rep(2,100),
                                rep(3,250))
-# Repeat for second data-view (with different column dimensions)
+
+# Repeat for second data-view (with different column dimensions) - same row clustering
 # vector of length = n_rowClusters
 row_dim <- c(100, 200, 300)
 col_dim <- c(100, 100, 100)
@@ -53,26 +69,34 @@ true_row_clusterings[[2]] <- c(rep(1,100),
 true_col_clusterings[[2]] <- c(rep(1,100),
                                rep(2,100),
                                rep(3,100))
+
+# we now have simulated data to run on
 #### Run Restrictive Multi-NMTF ####
 
-# Initialisation
-# Initialisation
+
+# Initialisation of F, S, G lists - one matrix for each data view
 Finit <- vector("list", length = length(X_trial))
 Sinit <- vector("list", length = length(X_trial))
 Ginit <- vector("list", length = length(X_trial))
+
+#initialise based on svd - why?
 for (i in 1:length(X_trial)){
   ss <- svd(X_trial[[i]])
   Finit[[i]] <- ss$u
   Sinit[[i]] <- diag(ss$d)
   Ginit[[i]] <- ss$v
 }
+
+#numbers of clusters in each view - doesn't need the last element I don't think 
 KK <- c(3,3,3)
 LL <- c(3,3,3)
+#changing initialisation of S to be radnom 
 for (i in 1:length(X_trial)){
   L <- LL[[i]]
   K <- KK[[i]]
   Sinit[[i]] <- mvrnorm(n = K, mu = rep(0,L), Sigma = diag(L))
 }
+# Sinit is no longer strictly positive? 
 # Select top K for row-clusters and L for column clusters
 
 for (i in 1:length(X_trial)){
@@ -83,12 +107,17 @@ for (i in 1:length(X_trial)){
   Ginit[[i]] <- abs(Ginit[[i]][,1:L])
 }
 
-# Tuning parameters
+# Tuning parameters - initialise as all zeros for now
 phi <- matrix(0, nrow = length(X_trial), ncol = length(X_trial))
 xi <- matrix(0, nrow = length(X_trial), ncol = length(X_trial))
 psi <- matrix(0, nrow = length(X_trial), ncol = length(X_trial))
 nIter <- 1000
-test_phi <- c(0, 0.1, 0.5, 1.0, 10.0)
+phi[1,2] <- 0.5
+phi<-Matrix(phi,sparse=TRUE)
+
+library(Matrix)
+
+
 tuningAccuracy <- vector("list", length = length(test_phi))
 tuningAdjRandValue <- vector("list", length = length(test_phi))
 tuningNMIvalue <- vector("list", length = length(test_phi))

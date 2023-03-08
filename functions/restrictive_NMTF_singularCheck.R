@@ -11,7 +11,7 @@
 #' G (PxL)
 
 # Directory
-setwd("C:/Users/theod/OneDrive - Imperial College London/Documents/Imperial/PhD/Multi-Clustering/Restrictive Multi-NMTF")
+#setwd("C:/Users/theod/OneDrive - Imperial College London/Documents/Imperial/PhD/Multi-Clustering/Restrictive Multi-NMTF")
 
 # Libraries
 library(MASS)
@@ -42,6 +42,7 @@ update_F <- function(Xinput, Finput, Sinput, Ginput, phi, k){
       temp_2 <- 0
       temp_3 <- 0
       for (u in 1:length(Finput)){
+
         if (phi[u,k] !=0){
           temp_1 <- temp_1 + phi[u,k]*Finput[[u]]
           temp_3 <- temp_3 + phi[u,k]
@@ -547,12 +548,16 @@ restMultiNMTF_algo <- function(Xinput, Finput, Sinput, Ginput, phi, xi, psi, nIt
                               Ginput = currentG[[v]],
                               phi = phi, k = v)
     # Normalise F and S
-    # Check singular
+    # Check singular -? empty cluster? - if happens repeatedly change number of clusters?
     if (f(currentF[[v]])){
       Q_F <- single_alt_l1_normalisation(currentF[[v]])$Q
       currentF[[v]] <- currentF[[v]] %*% solve(Q_F)
       currentS[[v]] <- Q_F %*% currentS[[v]]   
     } else {
+      #testing
+      print(v)
+      check_F <<- currentF[[v]]
+      #testing done
       svd_F <- svd(currentF[[v]])
       Q_F <- single_alt_l1_normalisation(svd_F$u)$Q
       currentF[[v]] <- currentF[[v]] %*% solve(Q_F)
@@ -641,6 +646,7 @@ restMultiNMTF_run <- function(Xinput, Finput, Sinput, Ginput, phi, xi, psi, nIte
                                            phi = phi,
                                            xi = xi, 
                                            psi = psi)  
+      print(paste0(t,"iteration done"))
       currentF <- new_parameters$Foutput
       currentS <- new_parameters$Soutput
       currentG <- new_parameters$Goutput
@@ -905,7 +911,8 @@ simulate_multiClusters <- function(nn, pp){
 
 # Existing libraries:
 library(kernelPSI)
-library(kpcalg)
+#library(kpcalg) 
+#is this needed?
 
 #' Hilbert-Schmidt Independence Criterion (HSIC)
 
@@ -1035,6 +1042,7 @@ restMultiNMTF_run_noScale <- function(Xinput, Finput, Sinput, Ginput, phi, xi, p
   } else {
     for (t in 1:nIter){
       err <- numeric(length = length(currentF))
+      print(t)
       new_parameters <- restMultiNMTF_algo(X = Xinput, 
                                            Finput = currentF, 
                                            Sinput = currentS,

@@ -8,10 +8,10 @@
 #' X (NxP)
 #' F (NxK)
 #' S (KxL)
-#' G (PxL)
+#' G (PxL)ß
 
 # Directory
-setwd("C:/Users/theod/OneDrive - Imperial College London/Documents/Imperial/PhD/Multi-Clustering/Restrictive Multi-NMTF")
+#setwd("C:/Users/theod/OneDrive - Imperial College London/Documents/Imperial/PhD/Multi-Clustering/Restrictive Multi-NMTF")
 
 # Libraries
 
@@ -54,9 +54,11 @@ update_F <- function(Xinput, Finput, Sinput, Ginput, phi, k){
       temp_den <- temp_3*Finput[[k]]
       temp_num <- temp_1 + temp_2
       if (is.na(sum(temp_num))){
+        print("NA is present")
         numerator[i,j] <- numerator_matrix[i,j]  
         denominator[i,j] <- denominator_matrix[i,j]
       } else if (sum(temp_num)== 0){
+        print("zero sum")
         numerator[i,j] <- numerator_matrix[i,j]  
         denominator[i,j] <- denominator_matrix[i,j]
       } else{
@@ -154,9 +156,11 @@ update_G <- function(Xinput, Finput, Sinput, Ginput, psi, k){
       temp_den <- temp_3*Ginput[[k]]
       temp_num <- temp_1 + temp_2
       if (is.na(sum(temp_num))){
+        print("na")
         numerator[i,j] <- numerator_matrix[i,j]  
         denominator[i,j] <- denominator_matrix[i,j]
       } else if (sum(temp_num) == 0){
+        #print("zero")
         numerator[i,j] <- numerator_matrix[i,j]  
         denominator[i,j] <- denominator_matrix[i,j]
       } else{
@@ -354,7 +358,9 @@ normalisation_l1 <- function(Finput, Sinput, Ginput){
   }
   return(list("Foutput" = Foutput, "Soutput" = Soutput, "Goutput" = Goutput))
 }
-
+library(clue)
+library(mclust)
+library(aricode)
 ## Additional functions
 fixTablingClustering <- function(tableInput, max = TRUE){
   if (nrow(tableInput) != ncol(tableInput)){
@@ -398,7 +404,10 @@ single_l1_normalisation <- function(Xmatrix){
 single_alt_l1_normalisation <- function(Xmatrix){
   #newMatrix <- matrix(0, nrow = nrow(Xmatrix), ncol = ncol(Xmatrix))
   # Introduce Q matrix
+  # diagonal matrix of column sums
+  # normalises a matrix so that the l1 norm of each column is 1
   Q <- diag(colSums(Xmatrix))
+  #solve Q
   newMatrix <- Xmatrix %*% solve(Q)
   return(list("Q" = Q, "newMatrix" = newMatrix))
 }
@@ -537,24 +546,60 @@ restMultiNMTF_algo <- function(Xinput, Finput, Sinput, Ginput, phi, xi, psi, nIt
   currentG <- Ginput
   for (v in 1:n_v){
     # Update F
-    currentF[[v]] <- update_F(Xinput = Xinput[[v]],
+    #currentF[[v]] <- update_F(Xinput = Xinput[[v]],
+                              #Finput = currentF,
+                              #Sinput = currentS[[v]],
+                              #Ginput = currentG[[v]],
+                              #phi = phi, k = v)
+    update_old <- update_F(Xinput = Xinput[[v]],
                               Finput = currentF,
                               Sinput = currentS[[v]],
                               Ginput = currentG[[v]],
                               phi = phi, k = v)
+    
+                     
+   #update_new <- update_F1(Xinput = Xinput[[v]],
+                              #Finput = currentF,
+                              #Sinput = currentS[[v]],
+                              #Ginput = currentG[[v]],
+                              #phi = phi, k = v)    
+    currentF[[v]] <- update_old
     # Normalise F and S
+    print(update_old)
+    print(diag(colSums(currentF[[v]])))
     Q_F <- single_alt_l1_normalisation(currentF[[v]])$Q
+    
     currentF[[v]] <- currentF[[v]] %*% solve(Q_F)
-    currentS[[v]] <- Q_F %*% currentS[[v]] 
+    #currentF[[v]] <- currentF[[v]] %*% solve(Q_F)
+    currentS[[v]] <- Q_F %*% currentS[[v]]
+
+    #if(v==1){
+      #print(paste("max relative difference between updates is",max(abs(update_old-update_new))))
+      #Q_new <- single_alt_l1_normalisation(update_new)$Q
+      #normal_new <- update_new %*% solve(Q_new)
+      #print(paste("max relative difference between normalised updates is",max(abs(currentF[[v]]-normal_new))))
+    #}
+    
+
+
+    #should be able to replace these lines with 
+    #F_normal <- single_alt_l1_normalisation(currentF[[v]])
+    #currentF[[v]] <- currentF[[v]] %*% (F_normal$newMatrix)
+    #currentS[[v]] <- (F_normal$newMatrix) %*% currentS[[v]]
+
     # Update G
     currentG[[v]] <- update_G(Xinput = Xinput[[v]],
                               Finput = currentF[[v]],
                               Sinput = currentS[[v]],
                               Ginput = currentG,
                               psi = psi, k = v)
+  
     # Normalise F and S
     Q_G <- single_alt_l1_normalisation(currentG[[v]])$Q
+    print("error1")
     currentG[[v]] <- currentG[[v]] %*% solve(Q_G)
+    print("error2")
+    # is this transpose needed? surely it's a sqaure matrix
     currentS[[v]] <- currentS[[v]] %*% t(Q_G)
     # Update S
     currentS[[v]] <- update_S(Xinput = Xinput[[v]],
@@ -598,7 +643,7 @@ restMultiNMTF_run <- function(Xinput, Finput, Sinput, Ginput, phi, xi, psi, nIte
                                            Ginput = currentG,
                                            phi = phi,
                                            xi = xi, 
-                                           psi = psi)  
+                                           psi = psi)
       currentF <- new_parameters$Foutput
       currentS <- new_parameters$Soutput
       currentG <- new_parameters$Goutput
@@ -615,6 +660,7 @@ restMultiNMTF_run <- function(Xinput, Finput, Sinput, Ginput, phi, xi, psi, nIte
   } else {
     for (t in 1:nIter){
       err <- numeric(length = length(currentF))
+      print(t)
       new_parameters <- restMultiNMTF_algo(X = Xinput, 
                                            Finput = currentF, 
                                            Sinput = currentS,
@@ -667,32 +713,45 @@ evaluate_simulation <- function(X_nmtf, true_row_clustering, true_col_clustering
   #' X_nmtf: Output of restMultiNMTF_run
   #' true_row/col_clustering: What the name states
   #' 
+  
+  #list length of number of views
   row_clustering <- vector("list", length = length(X_nmtf$Foutput))
   column_clustering <- vector("list", length = length(X_nmtf$Foutput))
   for (i in 1:length(X_nmtf$Foutput)){
     row_clustering[[i]] <- apply(X_nmtf$Foutput[[i]], 1, which.max)
     column_clustering[[i]] <- apply(X_nmtf$Goutput[[i]], 1, which.max)
   }
+  #list length of number of views
   column_table <- vector("list", length = length(X_nmtf$Foutput))
   row_table <- vector("list", length = length(X_nmtf$Foutput))
+  #accuracy table for each view - 1st row is row-clustering, second is column
   accuracy <- matrix(0, nrow = 2, ncol = length(X_nmtf$Foutput))
   rownames(accuracy) <- c("Row-clustering", "Column-clustering")
+  #adjusted Rand value for each view
   adjRandValue <- matrix(0, nrow = 2, ncol = length(X_nmtf$Foutput))
   rownames(adjRandValue) <- c("Row-clustering", "Column-clustering")
   nmiValue <- matrix(0, nrow = 2, ncol = length(X_nmtf$Foutput))
   rownames(nmiValue) <- c("Row-clustering", "Column-clustering")
+
+  #go through each view
   for (i in 1:length(X_nmtf$Foutput)){
+    #for each view set up a table with the clustering from that view and the true row clustering 
     row_table[[i]] <- table(row_clustering[[i]], true_row_clustering[[i]])
     if (nrow(row_table[[i]]) < ncol(row_table[[i]])){
+      #if fewer clusters predicted than in truth, add zeros for those true clusterings
       for (g in 1:(ncol(row_table[[i]]) - nrow(row_table[[i]]))){
         row_table[[i]] <- rbind(row_table[[i]], rep(0,ncol(row_table[[i]])))
-      }
+      } #if more clusters predicted than in truth, add zeros for those false clusterings
     }else if (nrow(row_table[[i]]) > ncol(row_table[[i]])){
       for (g in 1:(nrow(row_table[[i]]) - ncol(row_table[[i]]))){
         row_table[[i]] <- cbind(row_table[[i]], rep(0,nrow(row_table[[i]])))
       }
     }
+    #re order so they match
     row_table[[i]] <- fixTablingClustering(row_table[[i]])
+    print(i)
+    print(row_table[[i]])
+    #check same thing for columns - i.e. same number of predicted and true column cluster
     column_table[[i]] <- table(column_clustering[[i]], true_col_clustering[[i]])
     if (nrow(column_table[[i]]) < ncol(column_table[[i]])){
       for (g in 1:(ncol(column_table[[i]]) - nrow(column_table[[i]]))){
@@ -703,7 +762,9 @@ evaluate_simulation <- function(X_nmtf, true_row_clustering, true_col_clustering
         column_table[[i]] <- cbind(column_table[[i]], rep(0,nrow(column_table[[i]])))
       }
     }
+    #add fix column clusters
     column_table[[i]] <- fixTablingClustering(column_table[[i]])
+    print(column_table[[i]])
     accuracy[1,i] <- accuracyTable(row_table[[i]])
     accuracy[2,i] <- accuracyTable(column_table[[i]])
     adjRandValue[1,i] <- adjustedRandIndex(row_clustering[[i]], true_row_clustering[[i]])
