@@ -54,9 +54,8 @@ X_trial_NMTF <- restMultiNMTF_run(Xinput = X_trial,
                                         psi = psi,
                                         nIter = nIter)
 
-
+#it's working with Theo's simulated data - not mine - what's the difference?
 startTime <- Sys.time()
-X_trial_NMTF$
 #check the difference in errors
 
 X_trial_NMTF_new <- restMultiNMTF_run(Xinput = X_trial,
@@ -72,6 +71,10 @@ endTime <- Sys.time()
 
 print(endTime-startTime)
 
+eval_measures_NMTF_new <- evaluate_simulation(X_nmtf = X_trial_NMTF_new,
+                                            true_row_clustering = true_row_clusterings,
+                                            true_col_clustering = true_col_clusterings)
+
 startTime2 <- Sys.time()
 
 X_trial_NMTF_old <- restMultiNMTF_run(Xinput = X_trial,
@@ -82,7 +85,7 @@ X_trial_NMTF_old <- restMultiNMTF_run(Xinput = X_trial,
                                         xi = xi,
                                         psi = psi,
                                         nIter = nIter)
-
+ 
 endTime2 <- Sys.time()
 print(endTime2-startTime2)
 
@@ -210,3 +213,78 @@ data_views_NMTF_newFGS <- restrictiveMultiNMTF(data_views,
                     
 
 star_prod(psi_vec,Ginit)
+
+# new update F working 
+
+update_F <- function(Xinput, Finput, Sinput, Ginput, phi, k){
+  #' X: Input matrix
+  #' F: row-clustering -- Entire list as input of length n_v
+  #' S: connection between row-clustering and column-clustering
+  #' G: column-clustering
+  #' phi: weight on restrictions for F -> matrix of size (n_v x n_v) - a sparse matrix
+  #' k: which view to update
+  #' Output: An update for Finput[[k]] 
+  
+  # Find numerator
+  currentF <- Finput[[k]]
+  #GS^T - calculate once to improve speed
+  com_mat <- Ginput %*% t(Sinput)
+  numerator_matrix <- Xinput %*% com_mat
+  denominator_matrix <- currentF %*% t(com_mat) %*% com_mat
+
+  #calculate the column vector based on phi that is needed
+  #phi_vec <- (phi+t(phi))[,k]
+  #if(sum(phi_vec)==0){
+    #outputF <- currentF * ((numerator_matrix ) / (denominator_matrix ))
+  #}else{
+    #num_mat_prod <- star_prod(phi_vec, Finput)
+    #denom_mat_prod <- sum(phi_vec) * currentF
+    #outputF <- currentF * ((numerator_matrix + num_mat_prod) / (denominator_matrix + denom_mat_prod))
+  #}
+  
+  #return(outputF)
+
+
+numerator <- matrix(0, nrow = nrow(currentF), ncol = ncol(currentF))
+  denominator <- matrix(1, nrow = nrow(currentF), ncol = ncol(currentF))
+  outputF <- currentF
+  temp_den <- 0
+  temp_num <- 0
+  for (i in 1:nrow(currentF)){
+    for (j in 1:ncol(currentF)){
+      temp_1 <- 0
+      temp_2 <- 0
+      temp_3 <- 0
+      for (u in 1:length(Finput)){
+        if (phi[u,k] !=0){
+          temp_1 <- temp_1 + phi[u,k]*Finput[[u]]
+          temp_3 <- temp_3 + phi[u,k]
+        }
+        if (phi[k,u] !=0){
+          temp_2 <- temp_2 + phi[k,u]*Finput[[u]]
+          temp_3 <- temp_3 + phi[k,u]
+        }
+      }
+      temp_den <- temp_3*Finput[[k]]
+      temp_num <- temp_1 + temp_2
+      if (is.na(sum(temp_num))){
+        print("NA is present")
+        numerator[i,j] <- numerator_matrix[i,j]  
+        denominator[i,j] <- denominator_matrix[i,j]
+      } else if (sum(temp_num)== 0){
+        print("zero sum")
+        numerator[i,j] <- numerator_matrix[i,j]  
+        denominator[i,j] <- denominator_matrix[i,j]
+      } else{
+        numerator[i,j] <- numerator_matrix[i,j] + temp_num[i,j] 
+        #numerator is not na
+        denominator[i,j] <- denominator_matrix[i,j] + temp_den[i,j]
+      }
+      outputF[i,j] <- currentF[i,j] * (numerator[i,j]/denominator[i,j])
+      if(is.na(outputF[i,j])){print(c(currentF[i,j] , numerator[i,j],denominator[i,j]))}
+    }
+  }
+  return(outputF)
+
+
+}
