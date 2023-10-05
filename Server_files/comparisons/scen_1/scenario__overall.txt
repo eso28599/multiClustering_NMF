@@ -1,0 +1,12 @@
+\begin{table}
+\centering
+\begin{tabular}[t]{llllll}
+\toprule
+Method & CS & Rel & Rev & F_score & BiS\\
+\midrule
+ResNMTF & \textbf{25 (0)} & \textbf{0.9968 (0.0044)} & \textbf{0.9968 (0.0044)} & \textbf{0.9968 (0.0044)} & \textbf{0.4724 (0.0094)}\\
+iSSVD & 0 (0) & 0.2666 (0.0526) & 0.0994 (0.0124) & 0.1434 (0.0177) & 0.4165 (0.0216)\\
+\bottomrule
+\multicolumn{6}{l}{\textsuperscript{a} Best performance in bold.}\\
+\end{tabular}
+\end{table}

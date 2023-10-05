@@ -555,7 +555,7 @@ restMultiNMTF_algo <- function(Xinput, Finput, Sinput, Ginput, phi, xi, psi, nIt
       currentS[[v]] <- Q_F %*% currentS[[v]]   
     } else {
       #testing
-      print(v)
+      #print(v)
       check_F <<- currentF[[v]]
       #testing done
       svd_F <- svd(currentF[[v]])
@@ -646,7 +646,7 @@ restMultiNMTF_run <- function(Xinput, Finput, Sinput, Ginput, phi, xi, psi, nIte
                                            phi = phi,
                                            xi = xi, 
                                            psi = psi)  
-      print(paste0(t,"iteration done"))
+      #print(paste0(t,"iteration done"))
       currentF <- new_parameters$Foutput
       currentS <- new_parameters$Soutput
       currentG <- new_parameters$Goutput

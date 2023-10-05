@@ -184,5 +184,5 @@ mutate(test_tab4, ~cell_spec(.x, 'latex', bold = ifelse(.x == max(.x), TRUE,  FA
 test_tab4 %>% 
   adorn_totals('row') %>% 
   colwise() %>% 
-  mutate(a,  ~cell_spec(.x, 'latex', bold = ifelse(.x == max(c_across(var.1:var.4)), TRUE,  FALSE))))
+  mutate(a,  ~cell_spec(.x, 'latex', bold = ifelse(.x == max(c_across(var.1:var.4)), TRUE,  FALSE)))
 

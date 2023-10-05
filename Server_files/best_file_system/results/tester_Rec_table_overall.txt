@@ -1,0 +1,16 @@
+\begin{table}
+\centering
+\begin{tabular}[t]{lllll}
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{4}{c}{table\_head} \\
+\cmidrule(l{3pt}r{3pt}){2-5}
+ & 2 & 3 & 4 & 5\\
+\midrule
+ResNMTF & \textbf{0.6373 (0.1095)} & 0.9321 (0.0936) & 0.5465 (0.1103) & 0.3176 (0.0927)\\
+GFA & 0.4211 (0.0855) & 0.2553 (0.0302) & 0.2242 (0.0667) & 0.1758 (0.0525)\\
+iSSVD & 0.0000 (0.0000) & 0.0000 (0.0000) & 0.0000 (0.0000) & 0.1933 (0.0944)\\
+NMTF & 0.4746 (0.0477) & \textbf{0.9977 (0.0019)} & \textbf{0.8800 (0.0310)} & \textbf{0.7054 (0.0403)}\\
+\bottomrule
+\multicolumn{5}{l}{\textsuperscript{a} hello}\\
+\end{tabular}
+\end{table}

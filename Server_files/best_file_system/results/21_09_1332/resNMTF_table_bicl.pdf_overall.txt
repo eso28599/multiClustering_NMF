@@ -1,0 +1,14 @@
+\begin{table}
+\centering
+\begin{tabular}[t]{llllll}
+\toprule
+No. of biclusters & CSR & Relevance & Recovery & F score & BiS\\
+\midrule
+ResNMTF & () & () & () & 0.2151 (0.1579) & 0.8812 (0.0573)\\
+ResNMTF & () & () & () & 0.4654 (0.0058) & 0.9750 (0.0351)\\
+ResNMTF & () & () & () & 0.4042 (0.0468) & 0.8280 (0.0846)\\
+ResNMTF & () & () & () & 0.1743 (0.1529) & 0.7434 (0.1610)\\
+\bottomrule
+\multicolumn{6}{l}{\textsuperscript{a} "4 views, " * phi * " = 200, 10 repetitions."}\\
+\end{tabular}
+\end{table}

@@ -1,0 +1,13 @@
+\begin{table}
+\centering
+\begin{tabular}[t]{llll}
+\toprule
+Method & Accuracy & NMI & ARI\\
+\midrule
+res_nmtf & \textbf{1.0000 (0.0000)} & 0.9737 (0.0423) & 0.9765 (0.0424)\\
+mix_nmtf & 1.0000 (0.0000) & \textbf{0.9979 (0.0178)} & \textbf{0.9979 (0.0184)}\\
+issvd & 0.8800 (0.3266) & 0.6143 (0.1467) & 0.6109 (0.1472)\\
+\bottomrule
+\multicolumn{4}{l}{\textsuperscript{a} Best performance in bold.}\\
+\end{tabular}
+\end{table}

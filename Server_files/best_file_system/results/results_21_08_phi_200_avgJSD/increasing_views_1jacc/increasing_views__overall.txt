@@ -1,0 +1,13 @@
+\begin{table}
+\centering
+\begin{tabular}[t]{llllll}
+\toprule
+No. of views & CSR & Relevance & Recovery & F score & BiS\\
+\midrule
+2 & 0.9412 (0.0754) & 0.9570 (0.0895) & 0.9125 (0.1024) & 0.9241 (0.0885) & 0.4663 (0.0107)\\
+3 & 0.9464 (0.0583) & 0.9933 (0.0255) & 0.9027 (0.1075) & 0.9350 (0.0700) & 0.4697 (0.0047)\\
+4 & 0.9688 (0.0328) & 0.9791 (0.0348) & 0.9134 (0.0761) & 0.9399 (0.0541) & 0.4665 (0.0071)\\
+\bottomrule
+\multicolumn{6}{l}{\textsuperscript{a} "3 biclusters, " * phi * " = 200, 20 repetitions."}\\
+\end{tabular}
+\end{table}

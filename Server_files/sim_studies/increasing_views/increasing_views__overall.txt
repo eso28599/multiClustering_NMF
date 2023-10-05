@@ -1,0 +1,13 @@
+\begin{table}
+\centering
+\begin{tabular}[t]{llllll}
+\toprule
+No. of views & CSR & Relevance & Recover & F score & BiS\\
+\midrule
+2 & 0.9549 (0.1036) & 0.9057 (0.2141) & 0.9067 (0.2138) & 0.9062 (0.2139) & 0.4533 (0.0206)\\
+3 & \textbf{0.9969 (0.0128)} & \textbf{0.9957 (0.0074)} & \textbf{0.9961 (0.0046)} & \textbf{0.9958 (0.0056)} & \textbf{0.4640 (0.0095)}\\
+4 & 0.9938 (0.0177) & 0.9952 (0.0182) & 0.9958 (0.0162) & 0.9955 (0.0170) & 0.4640 (0.0085)\\
+\bottomrule
+\multicolumn{6}{l}{\textsuperscript{a} Best performance in bold.}\\
+\end{tabular}
+\end{table}

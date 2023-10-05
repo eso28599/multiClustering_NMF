@@ -1,0 +1,14 @@
+\begin{table}
+\centering
+\begin{tabular}[t]{lrr}
+\toprule
+  & BiS & CSR\\
+\midrule
+F score & 0.8539149 & 0.8835355\\
+Relevance & 0.8950093 & 0.9036734\\
+Recovery & 0.7721782 & 0.8351088\\
+\bottomrule
+\multicolumn{3}{l}{\textsuperscript{a} "4 views, " * phi * " = 200, 10}\\
+\multicolumn{3}{l}{repetitions."}\\
+\end{tabular}
+\end{table}

@@ -1,5 +1,12 @@
 # Multi-clustering via Non-negative Matrix Tri-factorization
 
+functions
+/restrictive_NMTF_modifications.R - modifications on the normalisation; investigate after better understanding of the normalisation process
+/restrictive_NMTF_singularCheck.R - normalisation implemented
+
+/simulations
+/diagonalMatrices.R   simulated block diagonal matrices
+
 Multi-view (or multi-modal) data integration via Non-negative Matrix Tri-factorization based on data restrictions with the purpose of simultaneous clustering of the samples and features of the data.
 
 Suppose that multiple datasets are available, some of which share the same samples (e.g. genomics and transcriptomics on the same samples), and other share the same features (e.g. genomics on two separate studies, or sample sets). The goal of multi-clustering is to simultaneously cluster the samples and features of each dataset based on restrictions and descriptives of the data. Categories of restrictions on the data-views (or modalities) are the following:

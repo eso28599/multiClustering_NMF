@@ -1,0 +1,12 @@
+\begin{table}
+\centering
+\begin{tabular}[t]{llll}
+\toprule
+Method & Accuracy & ARI & NMI\\
+\midrule
+NMTF & \textbf{0.9115 (0.0967)} & \textbf{0.8322 (0.1738)} & \textbf{0.8369 (0.1641)}\\
+NMTF - k means & 0.7937 (0.1221) & 0.6369 (0.1998) & 0.6551 (0.1838)\\
+\bottomrule
+\multicolumn{4}{l}{\textsuperscript{a} Best performance in bold.}\\
+\end{tabular}
+\end{table}

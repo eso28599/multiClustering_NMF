@@ -1,0 +1,14 @@
+\begin{table}
+\centering
+\begin{tabular}[t]{llllll}
+\toprule
+Method & CSR & Rel & Rec & F_score & BiS\\
+\midrule
+2 & \textbf{0.9950 (0.0250)} & 0.0004 (0.0022) & 0.0004 (0.0022) & 0.0004 (0.0022) & \textbf{0.5310 (0.0046)}\\
+3 & 0.9875 (0.0312) & \textbf{0.9725 (0.0425)} & \textbf{0.9863 (0.0168)} & \textbf{0.9787 (0.0289)} & 0.4648 (0.0095)\\
+4 & 0.6612 (0.0773) & 0.8153 (0.1561) & 0.7490 (0.1969) & 0.7753 (0.1766) & 0.4367 (0.0162)\\
+5 & 0.7029 (0.1018) & 0.8199 (0.2086) & 0.8742 (0.1949) & 0.8406 (0.1937) & 0.1881 (0.0815)\\
+\bottomrule
+\multicolumn{6}{l}{\textsuperscript{a} Best performance in bold.}\\
+\end{tabular}
+\end{table}

@@ -1,0 +1,14 @@
+\begin{table}
+\centering
+\begin{tabular}[t]{llllll}
+\toprule
+No. of biclusters & CSR & Relevance & Recovery & F score & BiS\\
+\midrule
+2 & 0.7704 (0.1145) & 0.7476 (0.2053) & 0.5845 (0.1178) & 0.6289 (0.1371) & 0.4290 (0.0684)\\
+3 & 0.9198 (0.0497) & 0.9830 (0.0377) & 0.8379 (0.0847) & 0.8910 (0.0587) & 0.4674 (0.0071)\\
+4 & 0.8147 (0.1347) & 0.7466 (0.0967) & 0.4828 (0.1281) & 0.5656 (0.1047) & 0.4025 (0.0229)\\
+5 & 0.7622 (0.1217) & 0.5702 (0.1250) & 0.2807 (0.0624) & 0.3599 (0.0686) & 0.2780 (0.0747)\\
+\bottomrule
+\multicolumn{6}{l}{\textsuperscript{a} 4 views, 100 repetitions.}\\
+\end{tabular}
+\end{table}

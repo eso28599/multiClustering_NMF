@@ -1,0 +1,12 @@
+\begin{table}
+\centering
+\begin{tabular}[t]{lllll}
+\toprule
+Method & ARI & NMI & Sil & Error\\
+\midrule
+SVD & \textbf{0.6865 (0.2690)} & \textbf{0.7116 (0.2416)} & \textbf{0.2163 (0.1971)} & \textbf{125.3009 ( 2.5722)}\\
+k means & 0.6479 (0.1474) & 0.6299 (0.1414) & 0.1882 (0.1005) & 141.0812 (12.4597)\\
+\bottomrule
+\multicolumn{5}{l}{\textsuperscript{a} Best performance in bold.}\\
+\end{tabular}
+\end{table}

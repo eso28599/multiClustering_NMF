@@ -1,0 +1,13 @@
+\begin{table}
+\centering
+\begin{tabular}[t]{llll}
+\toprule
+Method & CS & NMI & ARI\\
+\midrule
+ResNMTF & 40 (49.24) & \textbf{0.5837 (0.2664)} & \textbf{0.5878 (0.2680)}\\
+ResNMTF (RelErr) & 40 (49.24) & 0.5352 (0.2325) & 0.5306 (0.2313)\\
+iSSVD & \textbf{90 (30.15)} & 0.5233 (0.0638) & 0.5401 (0.0647)\\
+\bottomrule
+\multicolumn{4}{l}{\textsuperscript{a} Best performance in bold.}\\
+\end{tabular}
+\end{table}

@@ -1,0 +1,19 @@
+\begin{table}
+\centering
+\begin{tabular}[t]{llll}
+\toprule
+Method & Choice & accuracy & NMI & ARI\\
+\midrule
+\addlinespace[0.3em]
+\multicolumn{4}{l}{\textbf{Iter}}\\
+\hspace{1em}Error & 0.7377 (0.4396) & 0.9080 (0.1399) & 0.9161 (0.1315)\\
+\hspace{1em}RelErr & 0.7817 (0.4128) & 0.9244 (0.1253) & 0.9319 (0.1161)\\
+\hspace{1em}Sil & \textbf{0.9970 (0.0547)} & 0.9779 (0.0463) & 0.9802 (0.0459)\\
+\addlinespace[0.3em]
+\multicolumn{5}{l}{\textbf{Conv}}\\
+\hspace{1em}Error & 0.8110 (0.3917) & 0.9317 (0.1264) & 0.9379 (0.1186)\\
+\hspace{1em}RelErr & 0.9880 (0.1089) & \textbf{0.9950 (0.0368)} & \textbf{0.9951 (0.0369)}\\
+\hspace{1em}Sil & 0.9960 (0.0632) & 0.9797 (0.0466) & 0.9817 (0.0457)\\
+\bottomrule
+\end{tabular}
+\end{table}

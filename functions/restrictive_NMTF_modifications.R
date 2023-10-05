@@ -5,6 +5,17 @@
 f <- function(m) class(try(solve(m),silent=T))=="matrix"
 # if f(x) = FALSE --> x is  a singular matrix
 
+single_alt_l1_normalisation <- function(Xmatrix){
+  #newMatrix <- matrix(0, nrow = nrow(Xmatrix), ncol = ncol(Xmatrix))
+  # Introduce Q matrix
+  # diagonal matrix of column sums
+  # normalises a matrix so that the l1 norm of each column is 1
+  Q <- diag(colSums(Xmatrix))
+  #solve Q
+  newMatrix <- Xmatrix %*% solve(Q)
+  return(list("Q" = Q, "newMatrix" = newMatrix))
+}
+
 # Algorithm
 restMultiNMTF_algo <- function(Xinput, Finput, Sinput, Ginput, phi, xi, psi, nIter){
   #' Follow this structure:
@@ -65,10 +76,12 @@ restMultiNMTF_algo <- function(Xinput, Finput, Sinput, Ginput, phi, xi, psi, nIt
     StGt[which(is.na(StGt))] <- 0
     # Check if StGt, which is the input of the normalisation process, is singular
     if (f(StGt)){ # True means non-singular and we can proceed.
+      print("yes")
       Q <- single_alt_l1_normalisation(StGt)$Q
       currentF[[v]] <- currentF[[v]] %*% (Q)
       currentS[[v]] <- solve(Q) %*% currentS[[v]]  
     } else {
+      print(class(try(solve(StGT),silent=T)))
       svd_StGt <- svd(StGt)
       Q <- single_alt_l1_normalisation(svd_StGt$u)$Q
       currentF[[v]] <- currentF[[v]] %*% (Q)
@@ -86,7 +99,7 @@ restMultiNMTF_algo <- function(Xinput, Finput, Sinput, Ginput, phi, xi, psi, nIt
 restMultiNMTF_run_mod <- function(Xinput, Finput, Sinput, Ginput, phi, xi, psi, nIter){
   #' Run Restrictive-Multi NMTF, following the above algorithm
   n_v <- length(Xinput)
-  # Normalise Xinput 
+  # Normalise Xinput - why??
   for (v in 1:n_v){
     Xinput[[v]] <- single_alt_l1_normalisation(Xinput[[v]])$newMatrix
   }
@@ -224,7 +237,13 @@ update_F <- function(Xinput, Finput, Sinput, Ginput, phi, k){
       }
       temp_den <- temp_3*Finput[[k]]
       temp_num <- temp_1 + temp_2
+      #if there is an n.a. present
       if (is.na(sum(temp_num))){
+        if((i==1)&(j==1)){
+          print("na present")
+        print(temp_num[1:20,])
+        }
+        
         numerator[i,j] <- numerator_matrix[i,j]  
         denominator[i,j] <- denominator_matrix[i,j]
       } else if (sum(temp_num)== 0){
@@ -295,7 +314,7 @@ update_G <- function(Xinput, Finput, Sinput, Ginput, psi, k){
   #' G: column-clustering -- Entire list as input of length n_v
   #' psi: weight on restrictions for G -> matrix of size (n_v x n_v)
   #' k: which view to update
-  #' Output: An update for Finput[[k]] 
+  #' Output: An update for Finput[[k]]
   
   # Find numerator
   currentG <- Ginput[[k]]

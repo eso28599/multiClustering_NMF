@@ -1,0 +1,28 @@
+\begin{landscape}
+\begin{table}
+\centering
+\begin{tabular}[t]{llllll}
+\toprule
+Phi & 2 & 3 & 4 & 5 & 6\\
+\midrule
+0 & \textcolor{black}{144.7124 (1.1051)} & \textcolor{red}{127.5727 ( 4.9826)} & \textcolor{black}{135.5141 (7.2755)} & \textcolor{black}{135.2696 ( 5.9699)} & \textcolor{black}{133.3701 ( 4.3016)}\\
+0.002 & \textcolor{black}{144.7120 (1.0548)} & \textcolor{red}{128.3450 ( 6.2924)} & \textcolor{black}{132.3078 (6.8927)} & \textcolor{black}{132.4812 ( 6.1196)} & \textcolor{black}{134.3459 ( 9.0968)}\\
+0.004 & \textcolor{black}{145.1381 (1.7649)} & \textcolor{red}{127.7467 ( 4.4679)} & \textcolor{black}{\textbackslash{}textbf\{128.7561 (4.4549)\}} & \textcolor{black}{134.1918 ( 7.9089)} & \textcolor{black}{135.4179 ( 8.9532)}\\
+0.006 & \textcolor{black}{144.9281 (1.5735)} & \textcolor{black}{129.8709 ( 7.0528)} & \textcolor{red}{128.9635 (5.8375)} & \textcolor{black}{133.7397 ( 6.4392)} & \textcolor{black}{133.4100 ( 7.2710)}\\
+0.008 & \textcolor{black}{144.9207 (1.5301)} & \textcolor{red}{130.3195 ( 6.0365)} & \textcolor{black}{133.9709 (6.7781)} & \textcolor{black}{131.9662 ( 4.9167)} & \textcolor{black}{\textbackslash{}textbf\{130.8972 ( 6.5753)\}}\\
+\addlinespace
+0.01 & \textcolor{black}{145.1269 (2.1859)} & \textcolor{red}{130.4736 ( 7.4372)} & \textcolor{black}{132.3272 (7.7164)} & \textcolor{black}{132.9577 ( 7.2659)} & \textcolor{black}{143.4089 (56.6816)}\\
+0.012 & \textcolor{black}{144.8649 (1.6414)} & \textcolor{black}{\textbackslash{}textbf\{127.1889 ( 6.1134)\}} & \textcolor{red}{131.2276 (6.2410)} & \textcolor{black}{\textbackslash{}textbf\{131.5472 ( 6.1501)\}} & \textcolor{black}{132.4154 ( 6.2235)}\\
+0.014 & \textcolor{black}{145.0546 (2.1446)} & \textcolor{red}{129.5699 ( 6.2563)} & \textcolor{black}{133.6881 (8.4702)} & \textcolor{black}{135.2858 ( 7.4331)} & \textcolor{black}{131.2506 ( 5.1953)}\\
+0.016 & \textcolor{black}{\textbackslash{}textbf\{144.6786 (1.1366)\}} & \textcolor{red}{129.6861 ( 4.4862)} & \textcolor{black}{132.1113 (6.8971)} & \textcolor{black}{135.9004 (14.9887)} & \textcolor{black}{134.8197 ( 7.0392)}\\
+0.018 & \textcolor{black}{144.9600 (1.4413)} & \textcolor{black}{132.4740 ( 9.8683)} & \textcolor{black}{132.1296 (8.7860)} & \textcolor{black}{132.6340 ( 5.4645)} & \textcolor{red}{131.6517 ( 5.9709)}\\
+\addlinespace
+0.02 & \textcolor{black}{144.8014 (1.2617)} & \textcolor{red}{128.3548 ( 5.3498)} & \textcolor{black}{130.3283 (6.8186)} & \textcolor{black}{131.9191 ( 5.6991)} & \textcolor{black}{131.9772 ( 6.0625)}\\
+0.03 & \textcolor{black}{144.8234 (1.0663)} & \textcolor{black}{133.7890 (10.2374)} & \textcolor{black}{133.4607 (7.8816)} & \textcolor{black}{132.6176 ( 7.0754)} & \textcolor{red}{131.5192 ( 5.2595)}\\
+0.04 & \textcolor{black}{144.7897 (1.4214)} & \textcolor{red}{130.6514 ( 7.0798)} & \textcolor{black}{132.2244 (7.6538)} & \textcolor{black}{132.5805 ( 6.5075)} & \textcolor{black}{131.6995 ( 7.6804)}\\
+\bottomrule
+\multicolumn{6}{l}{\textsuperscript{a} Best performance in bold.}\\
+\end{tabular}
+\caption{Error over large range of $\phi$ values for $k \in \{2,3,4,5,6\}$ (Scenario 1)}
+\end{table}
+\end{lanscape}

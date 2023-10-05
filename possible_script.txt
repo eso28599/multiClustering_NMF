@@ -1,0 +1,27 @@
+#!/bin/bash
+#PBS -N standard_submission_script
+#PBS -m be
+#PBS -q standard
+
+cd ${HOME}/data_integration/sim_studies_NMTF
+
+#Script for carrying out simulation - save as name of simulation
+#2. Create empty folder with the name 'sim_name_of_sim_data' following subfolders 
+mkdir sim_test_data
+cd sim_test_data
+mkdir data
+mkdir true_rows
+mkdir true_cols
+mkdir data
+mkdir nmtf_row_clusts
+mkdir nmtf_col_clusts
+mkdir nmtf_errors
+cd ..
+#2. Generate data and store in current folder
+/usr/bin/R --vanilla < sim_data_gen.r > test_r.out
+
+#3. Run analysis in R, saving clusters
+#4. Run evaluation of results and save 
+
+
+/usr/bin/R --vanilla < test.r > test_r.out

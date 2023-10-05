@@ -1,0 +1,39 @@
+\begin{table}
+\centering
+\begin{tabular}[t]{llll}
+\toprule
+Phi & Accuracy & ARI & NMI\\
+\midrule
+\addlinespace[0.3em]
+\multicolumn{4}{l}{\textbf{50}}\\
+\hspace{1em}Row & 0.9490 (0.1154) & 0.9099 (0.1929) & 0.9147 (0.1822)\\
+\hspace{1em}Column & 0.9584 (0.0807) & 0.9198 (0.1460) & 0.9237 (0.1370)\\
+\hspace{1em}Overall & 0.9537 (0.0860) & 0.9148 (0.1514) & 0.9192 (0.1434)\\
+\addlinespace[0.3em]
+\multicolumn{4}{l}{\textbf{60}}\\
+\hspace{1em}Row & 0.9251 (0.1409) & 0.8743 (0.2262) & 0.8771 (0.2188)\\
+\hspace{1em}Column & 0.9601 (0.0844) & 0.9186 (0.1607) & 0.9246 (0.1447)\\
+\hspace{1em}Overall & 0.9426 (0.1021) & 0.8964 (0.1793) & 0.9008 (0.1709)\\
+\addlinespace[0.3em]
+\multicolumn{4}{l}{\textbf{70}}\\
+\hspace{1em}Row & 0.9544 (0.0992) & 0.9081 (0.1882) & 0.9148 (0.1751)\\
+\hspace{1em}Column & 0.9667 (0.0816) & 0.9350 (0.1509) & 0.9376 (0.1394)\\
+\hspace{1em}Overall & 0.9606 (0.0852) & 0.9216 (0.1597) & 0.9262 (0.1501)\\
+\addlinespace[0.3em]
+\multicolumn{4}{l}{\textbf{80}}\\
+\hspace{1em}Row & 0.9637 (0.1104) & 0.9403 (0.1762) & 0.9425 (0.1677)\\
+\hspace{1em}Column & 0.9819 (0.0655) & 0.9665 (0.1123) & 0.9694 (0.1004)\\
+\hspace{1em}Overall & 0.9728 (0.0797) & 0.9534 (0.1328) & 0.9559 (0.1242)\\
+\addlinespace[0.3em]
+\multicolumn{4}{l}{\textbf{90}}\\
+\hspace{1em}Row & 0.9576 (0.1038) & 0.9215 (0.1817) & 0.9263 (0.1712)\\
+\hspace{1em}Column & 0.9741 (0.0719) & 0.9474 (0.1390) & 0.9506 (0.1288)\\
+\hspace{1em}Overall & 0.9658 (0.0837) & 0.9345 (0.1513) & 0.9384 (0.1428)\\
+\addlinespace[0.3em]
+\multicolumn{4}{l}{\textbf{100}}\\
+\hspace{1em}Row & 0.9639 (0.0975) & 0.9337 (0.1683) & 0.9352 (0.1639)\\
+\hspace{1em}Column & 0.9802 (0.0601) & 0.9594 (0.1197) & 0.9616 (0.1122)\\
+\hspace{1em}Overall & 0.9720 (0.0737) & 0.9466 (0.1359) & 0.9484 (0.1318)\\
+\bottomrule
+\end{tabular}
+\end{table}

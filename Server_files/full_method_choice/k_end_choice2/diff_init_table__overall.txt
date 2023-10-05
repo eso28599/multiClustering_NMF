@@ -1,0 +1,17 @@
+\begin{table}
+\centering
+\begin{tabular}[t]{lllll}
+\toprule
+Method & Choice & accuracy & NMI & ARI\\
+\midrule
+Iter & Error & 0.2430 (0.4291) & \textbf{0.6288 (0.1370)} & \textbf{0.6245 (0.1397)}\\
+Iter & RelErr & 0.2270 (0.4191) & 0.6194 (0.1497) & 0.6194 (0.1489)\\
+Iter & Sil & \textbf{0.4080 (0.4917)} & 0.5719 (0.2616) & 0.5737 (0.2650)\\
+Conv & Error & 0.2220 (0.4158) & 0.6206 (0.1297) & 0.6165 (0.1325)\\
+Conv & RelErr & 0.0910 (0.2878) & 0.6069 (0.1003) & 0.6045 (0.1040)\\
+\addlinespace
+Conv & Sil & 0.3930 (0.4887) & 0.5662 (0.2600) & 0.5680 (0.2640)\\
+\bottomrule
+\multicolumn{5}{l}{\textsuperscript{a} Best performance in bold.}\\
+\end{tabular}
+\end{table}

@@ -1,0 +1,19 @@
+\begin{table}
+\centering
+\begin{tabular}[t]{llll}
+\toprule
+Method & Accuracy & ARI & NMI\\
+\midrule
+\addlinespace[0.3em]
+\multicolumn{4}{l}{\textbf{NMTF}}\\
+\hspace{1em}Row & 0.8987 (0.1302) & 0.8031 (0.2374) & 0.8154 (0.2142)\\
+\hspace{1em}Column & 0.9537 (0.0701) & 0.9085 (0.1276) & 0.9068 (0.1206)\\
+\hspace{1em}Overall & 0.9262 (0.0912) & 0.8558 (0.1651) & 0.8611 (0.1529)\\
+\addlinespace[0.3em]
+\multicolumn{4}{l}{\textbf{NMTF - k means}}\\
+\hspace{1em}Row & 0.7602 (0.1495) & 0.5664 (0.2516) & 0.5982 (0.2282)\\
+\hspace{1em}Column & 0.8373 (0.1026) & 0.7114 (0.1700) & 0.7084 (0.1600)\\
+\hspace{1em}Overall & 0.7988 (0.1162) & 0.6389 (0.1962) & 0.6533 (0.1810)\\
+\bottomrule
+\end{tabular}
+\end{table}
